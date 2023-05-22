@@ -13,8 +13,16 @@ let colorDeFondo2; //variable global de color rojo
 let colorActual; // Variable que almacena el color actual
 let cambioColor = false; // Variable de bandera para el cambio de color
 
-
 let cantidadFiguras = 19;
+
+let granos;
+
+let saturacionDeseada = 80; // Valor de saturación deseado (0-100)
+
+
+function preload() {
+  granos = loadImage('filtro.png');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -43,15 +51,25 @@ function setup() {
   // ANGULO EN GRADOS
   angleMode( DEGREES );
   frameRate( 60 ); // DEFINO UN NUMERO ESTABLECIDO DE FOTOGRAMAS
+
 }
 
 function draw() {
   background(255);
+
+  push();
   translate(width/2, height/2);
   for(let i = 0; i < figuras.length; i++) {
     figuras[figuras.length-i-1].update(mouseY);
+
+   
+
     figuras[figuras.length-i-1].display(i, figuras.length);
   }
+pop();
+// Dibuja la imagen con opacidad
+tint(255, 50); // 128 es el valor de opacidad (0 es completamente transparente y 255 es opaco)
+image(granos,0,0, width, height); // Cambia las coordenadas y dimensiones según tus necesidades
 }
 
 function keyPressed() {
